@@ -1,0 +1,139 @@
+import Layout from "@/components/Layout";
+import PageHeader from "@/components/PageHeader";
+import { Star, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+
+const stats = [
+  { value: "500+", label: "Étudiants accompagnés" },
+  { value: "95%", label: "Taux de réussite" },
+  { value: "15+", label: "Pays représentés" },
+  { value: "4.9/5", label: "Note moyenne" },
+];
+
+const testimonials = [
+  {
+    quote: "Grâce à Maig'Up France, j'ai pu constituer mon dossier Campus France sans stress. L'équipe m'a guidée à chaque étape et j'ai obtenu mon admission du premier coup ! Je recommande à tous les étudiants sénégalais.",
+    name: "Aminata Diallo",
+    country: "Sénégal",
+    university: "Université Paris-Saclay",
+    program: "Master Marketing Digital • 2025",
+    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200",
+  },
+  {
+    quote: "La simulation d'entretien m'a été très utile. J'étais préparé à toutes les questions et j'ai réussi mon entretien avec succès. L'équipe est très professionnelle et à l'écoute.",
+    name: "Kofi Mensah",
+    country: "Côte d'Ivoire",
+    university: "Sciences Po Bordeaux",
+    program: "Master Relations Internationales • 2025",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
+  },
+  {
+    quote: "L'accompagnement de Maig'Up France a fait toute la différence. Mes lettres de motivation étaient parfaitement adaptées à chaque formation. Un grand merci à toute l'équipe !",
+    name: "Fatou Bah",
+    country: "Guinée",
+    university: "Université de Lyon",
+    program: "Licence Économie • 2024",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
+  },
+  {
+    quote: "J'étais perdu dans les démarches Campus France avant de découvrir Maig'Up. En quelques semaines, mon dossier était complet et j'ai obtenu 3 admissions ! Service exceptionnel.",
+    name: "Ibrahim Traoré",
+    country: "Mali",
+    university: "Université de Strasbourg",
+    program: "Master Informatique • 2025",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
+  },
+  {
+    quote: "Le pack complet m'a permis de ne me soucier de rien. Du début à la fin, l'équipe était là pour moi. J'ai obtenu mon visa et je suis maintenant en France !",
+    name: "Aïcha Ouédraogo",
+    country: "Burkina Faso",
+    university: "Université de Toulouse",
+    program: "Licence Droit • 2024",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200",
+  },
+  {
+    quote: "Maig'Up France m'a aidé à choisir les meilleures universités pour mon profil. Leurs conseils stratégiques ont été déterminants dans ma réussite.",
+    name: "Moussa Camara",
+    country: "Guinée",
+    university: "Université Paris-Cité",
+    program: "Master Biologie • 2025",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200",
+  },
+];
+
+const Testimonials = () => {
+  return (
+    <Layout>
+      <PageHeader
+        badge="Témoignages"
+        title="Ils ont réussi avec"
+        highlight="Maig'Up France"
+        description="Découvrez les témoignages de nos étudiants qui ont concrétisé leur rêve d'étudier en France."
+        icon={<Star className="w-4 h-4 text-gold" />}
+      />
+
+      {/* Stats */}
+      <section className="page-header-gradient py-8">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</p>
+                <p className="text-sm text-hero-muted">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Grid */}
+      <section className="section-light py-20">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div key={t.name} className="bg-card border border-border rounded-xl p-6">
+                <div className="text-gold text-3xl font-serif mb-3">"</div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{t.quote}</p>
+                <div className="flex items-center gap-2 text-gold mb-4">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <div className="flex items-center gap-3">
+                  <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">{t.name}</p>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="w-3 h-3" />
+                      <span>{t.country}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t.university}</p>
+                    <p className="text-xs text-primary">{t.program}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="hero-gradient py-20">
+        <div className="container mx-auto px-4 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-hero-foreground mb-4">Écrivez votre propre succès</h2>
+          <p className="text-hero-muted mb-8 max-w-xl mx-auto">
+            Rejoignez nos étudiants qui ont concrétisé leur rêve d'étudier en France.
+          </p>
+          <Link to="/contact">
+            <Button size="lg" className="bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold px-8 rounded-full">
+              Démarrer mon projet
+            </Button>
+          </Link>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default Testimonials;
