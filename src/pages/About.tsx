@@ -16,7 +16,10 @@ const timeline = [
   { year: "2026", title: "Expansion", description: "Ouverture des antennes en Afrique" },
 ];
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const About = () => {
+  useScrollReveal();
   return (
     <Layout>
       <PageHeader
@@ -27,7 +30,7 @@ const About = () => {
       />
 
       {/* Mission Section */}
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -52,7 +55,7 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800"
+                src="/Assets/maigup3.jpg"
                 alt="Équipe Maig'Up France"
                 className="rounded-2xl shadow-xl w-full object-cover h-80 lg:h-96"
               />
@@ -66,7 +69,7 @@ const About = () => {
       </section>
 
       {/* Values */}
-      <section className="section-subtle py-20">
+      <section className="section-subtle py-20 reveal">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-semibold mb-2">Nos valeurs</p>
@@ -88,7 +91,7 @@ const About = () => {
       </section>
 
       {/* Timeline */}
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-semibold mb-2">Notre parcours</p>

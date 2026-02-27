@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Users, Award, Star, FileText, GraduationCap, MessageSquare, Target, Clock, Heart, Shield, Zap, Headphones } from "lucide-react";
+import { ArrowRight, ArrowUp, CheckCircle2, Users, Award, Star, FileText, GraduationCap, MessageSquare, Target, Clock, Heart, Shield, Zap, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const stats = [
@@ -62,7 +62,24 @@ const testimonials = [
   },
 ];
 
+import { useState, useEffect } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const Index = () => {
+  useScrollReveal();
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <Layout>
       {/* Hero Section */}
@@ -100,11 +117,11 @@ const Index = () => {
               <div className="flex flex-wrap gap-4">
                 <Link to="/contact">
                   <Button size="lg" className="bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold px-8 rounded-full gap-2">
-                    Démarrer mon projet <ArrowRight className="w-4 h-4" />
+                    Commencer <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
                 <Link to="/services">
-                  <Button size="lg" variant="outline" className="border-hero-lighter text-hero-foreground hover:bg-hero-lighter/30 font-semibold px-8 rounded-full">
+                  <Button size="lg" variant="outline" className="border-hero-lighter text-hero-foreground bg-hero-lighter/10 hover:bg-hero-lighter/30 font-semibold px-8 rounded-full">
                     Découvrir nos services
                   </Button>
                 </Link>
@@ -143,7 +160,7 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-semibold mb-2">Nos services</p>
@@ -155,7 +172,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 mobile-horizontal-scroll">
             {services.map((service) => (
               <div
                 key={service.title}
@@ -181,12 +198,12 @@ const Index = () => {
       </section>
 
       {/* Image + Stats Banner */}
-      <section className="section-subtle py-20">
+      <section className="section-subtle py-20 reveal">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800"
+                src="/Assets/maigup1.jpg"
                 alt="Étudiants heureux"
                 className="rounded-2xl shadow-xl w-full object-cover h-80 lg:h-96"
               />
@@ -223,7 +240,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-primary font-semibold mb-2">Témoignages</p>
@@ -235,7 +252,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
+          <div className="grid md:grid-cols-3 gap-6 mb-10 mobile-horizontal-scroll">
             {testimonials.map((t) => (
               <div key={t.name} className="bg-card border border-border rounded-xl p-6">
                 <div className="text-gold text-3xl font-serif mb-3">"</div>
@@ -267,7 +284,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="hero-gradient py-20">
+      <section className="hero-gradient py-20 reveal">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <p className="text-primary font-semibold mb-2">Prêt à démarrer ?</p>
           <h2 className="text-3xl md:text-4xl font-bold text-hero-foreground mb-4">
@@ -294,6 +311,14 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* Back to Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`back-to-top ${showBackToTop ? "visible" : ""}`}
+        aria-label="Back to top"
+      >
+        <ArrowUp className="w-6 h-6" />
+      </button>
     </Layout>
   );
 };

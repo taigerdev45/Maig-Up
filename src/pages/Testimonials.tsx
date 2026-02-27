@@ -1,8 +1,11 @@
 import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
-import { Star, MapPin } from "lucide-react";
+import { Star, MapPin, Send, User, MessageSquare, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const stats = [
   { value: "500+", label: "Étudiants accompagnés" },
@@ -63,6 +66,7 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  useScrollReveal();
   return (
     <Layout>
       <PageHeader
@@ -88,9 +92,9 @@ const Testimonials = () => {
       </section>
 
       {/* Testimonials Grid */}
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {testimonials.map((t) => (
               <div key={t.name} className="bg-card border border-border rounded-xl p-6">
                 <div className="text-gold text-3xl font-serif mb-3">"</div>
@@ -115,11 +119,53 @@ const Testimonials = () => {
               </div>
             ))}
           </div>
+
+          {/* Leave a Testimonial Form */}
+          <div className="max-w-3xl mx-auto bg-card border border-border rounded-2xl p-8 shadow-sm">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">Laissez votre témoignage</h3>
+              <p className="text-muted-foreground">Partagez votre expérience avec Maig'Up France et aidez d'autres étudiants.</p>
+            </div>
+
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              toast.success("Merci ! Votre témoignage a été envoyé pour validation.");
+              (e.target as HTMLFormElement).reset();
+            }} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    <User className="w-4 h-4 text-primary" /> Nom complet
+                  </label>
+                  <input required type="text" placeholder="Prénom Nom" className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-primary" /> Pays d'origine
+                  </label>
+                  <input required type="text" placeholder="Sénégal, Côte d'Ivoire, etc." className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-primary" /> Votre message
+                </label>
+                <textarea required rows={4} placeholder="Comment Maig'Up France vous a-t-il aidé ?" className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"></textarea>
+              </div>
+
+              <div className="flex justify-center">
+                <Button type="submit" className="bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold px-10 rounded-full gap-2 transition-all hover:scale-105">
+                  Envoyer mon témoignage <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="hero-gradient py-20">
+      <section className="hero-gradient py-20 reveal">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-hero-foreground mb-4">Écrivez votre propre succès</h2>
           <p className="text-hero-muted mb-8 max-w-xl mx-auto">
@@ -127,7 +173,7 @@ const Testimonials = () => {
           </p>
           <Link to="/contact">
             <Button size="lg" className="bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold px-8 rounded-full">
-              Démarrer mon projet
+              Commencer
             </Button>
           </Link>
         </div>

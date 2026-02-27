@@ -49,7 +49,10 @@ const servicesData = [
   },
 ];
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 const Services = () => {
+  useScrollReveal();
   return (
     <Layout>
       <PageHeader
@@ -59,7 +62,7 @@ const Services = () => {
         description="De la création de votre compte Campus France à l'obtention de votre visa, nous vous accompagnons à chaque étape de votre projet."
       />
 
-      <section className="section-light py-20">
+      <section className="section-light py-20 reveal-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {servicesData.map((service) => (
@@ -87,7 +90,7 @@ const Services = () => {
       </section>
 
       {/* CTA */}
-      <section className="hero-gradient py-20">
+      <section className="hero-gradient py-20 reveal">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-hero-foreground mb-4">Prêt à démarrer votre projet ?</h2>
           <p className="text-hero-muted mb-8 max-w-xl mx-auto">

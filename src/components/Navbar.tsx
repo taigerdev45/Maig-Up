@@ -21,12 +21,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <GraduationCap className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-hero-foreground">
-              Maig'Up <span className="text-gold">France</span>
-            </span>
+            <img
+              src="/Assets/logo_maigup-removebg-preview.png"
+              alt="Maig'Up France Logo"
+              className="h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -35,11 +34,10 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === link.path
+                className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path
                     ? "text-primary"
                     : "text-hero-muted"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -50,7 +48,7 @@ const Navbar = () => {
           <div className="hidden lg:block">
             <Link to="/contact">
               <Button className="bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold px-6 rounded-full">
-                Démarrer mon projet
+                Commencer
               </Button>
             </Link>
           </div>
@@ -72,18 +70,17 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block py-2 text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === link.path
+                className={`block py-2 text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path
                     ? "text-primary"
                     : "text-hero-muted"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
             ))}
             <Link to="/contact" onClick={() => setIsOpen(false)}>
               <Button className="mt-4 w-full bg-primary hover:bg-cyan-dark text-primary-foreground font-semibold rounded-full">
-                Démarrer mon projet
+                Commencer
               </Button>
             </Link>
           </div>

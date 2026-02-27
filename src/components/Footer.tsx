@@ -9,12 +9,11 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold">
-                Maig'Up <span className="text-gold">France</span>
-              </span>
+              <img
+                src="/Assets/logo_maigup-removebg-preview.png"
+                alt="Maig'Up France Logo"
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="text-hero-muted text-sm leading-relaxed">
               Votre partenaire de confiance pour réussir vos études en France. Accompagnement Campus France personnalisé.
