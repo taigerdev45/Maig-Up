@@ -119,41 +119,43 @@ const AdminDashboard = () => {
                 </Card>
 
                 {/* Status Breakdown (Pie Chart) */}
-                <Card className="border-border/50 shadow-sm">
-                    <CardHeader>
+                <Card className="border-border/50 shadow-sm overflow-hidden flex flex-col">
+                    <CardHeader className="shrink-0">
                         <CardTitle className="text-lg flex items-center gap-2">
                             <FileText className="w-5 h-5 text-primary" />
                             État des Demandes
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
-                        <div className="h-[300px] w-full">
+                    <CardContent className="flex-1 flex flex-col justify-center min-h-[300px] p-0 pb-6">
+                        <div className="h-[220px] w-full shrink-0">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
                                         data={statusData}
                                         cx="50%"
                                         cy="50%"
-                                        innerRadius={60}
-                                        outerRadius={80}
-                                        paddingAngle={5}
+                                        innerRadius={55}
+                                        outerRadius={75}
+                                        paddingAngle={4}
                                         dataKey="value"
                                     >
                                         {statusData.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip
+                                        contentStyle={{ borderRadius: '10px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
-                            <div className="grid grid-cols-2 gap-2 mt-4 text-xs">
-                                {statusData.map((item, index) => (
-                                    <div key={item.name} className="flex items-center gap-2">
-                                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index] }} />
-                                        <span className="text-muted-foreground whitespace-nowrap">{item.name}</span>
-                                    </div>
-                                ))}
-                            </div>
+                        </div>
+                        <div className="px-6 grid grid-cols-2 gap-x-2 gap-y-2 text-xs shrink-0">
+                            {statusData.map((item, index) => (
+                                <div key={item.name} className="flex items-center gap-2 min-w-0">
+                                    <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: COLORS[index] }} />
+                                    <span className="text-muted-foreground truncate">{item.name}</span>
+                                </div>
+                            ))}
                         </div>
                     </CardContent>
                 </Card>

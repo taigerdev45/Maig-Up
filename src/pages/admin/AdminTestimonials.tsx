@@ -55,10 +55,6 @@ const AdminTestimonials = () => {
                     <h2 className="text-2xl font-bold tracking-tight text-foreground">Gestion des Témoignages</h2>
                     <p className="text-muted-foreground">Approuvez ou rejetez les témoignages envoyés par les étudiants.</p>
                 </div>
-                <Button className="bg-primary hover:bg-cyan-dark text-primary-foreground gap-2">
-                    <Plus className="w-4 h-4" />
-                    Ajouter manuellement
-                </Button>
             </div>
 
             <div className="flex items-center gap-4">
@@ -89,9 +85,6 @@ const AdminTestimonials = () => {
                                         <p className="text-xs text-muted-foreground">{t.country}</p>
                                     </div>
                                 </div>
-                                <Badge variant="secondary" className={getStatusColor(t.status)}>
-                                    {t.status}
-                                </Badge>
                             </div>
                         </CardHeader>
                         <CardContent>

@@ -46,9 +46,9 @@ const AdminLayout = () => {
             {/* Sidebar */}
             <aside
                 className={`bg-[#1A1F2C] border-r border-white/10 transition-all duration-300 z-50 ${isSidebarOpen ? "w-64" : "w-20"
-                    } fixed h-screen overflow-y-auto lg:relative flex flex-col`}
+                    } fixed top-0 left-0 h-screen flex flex-col`}
             >
-                <div className="p-6 flex items-center justify-between">
+                <div className="p-6 flex items-center justify-between shrink-0">
                     <Link to="/" className={`flex items-center gap-2 ${!isSidebarOpen && "hidden lg:flex"}`}>
                         <img
                             src="/Assets/logo_maigup-removebg-preview.png"
@@ -66,7 +66,7 @@ const AdminLayout = () => {
                     </Button>
                 </div>
 
-                <nav className="mt-6 px-4 space-y-2 flex-1">
+                <nav className="mt-6 px-4 space-y-2 flex-1 overflow-y-auto">
                     {menuItems.map((item) => (
                         <Link
                             key={item.path}
@@ -84,7 +84,7 @@ const AdminLayout = () => {
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-white/5">
+                <div className="p-4 border-t border-white/5 shrink-0">
                     <Button
                         variant="ghost"
                         className={`w-full flex items-center gap-3 px-3 py-3 text-red-400 hover:bg-red-500/10 hover:text-red-300 ${!isSidebarOpen && "justify-center"
@@ -98,6 +98,9 @@ const AdminLayout = () => {
                     </Button>
                 </div>
             </aside>
+
+            {/* Spacer for fixed sidebar on large screens */}
+            <div className={`shrink-0 transition-all duration-300 hidden lg:block ${isSidebarOpen ? "w-64" : "w-20"}`} />
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-w-0">
