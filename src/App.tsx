@@ -9,6 +9,14 @@ import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
+import AdminLayout from "./layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRegistrations from "./pages/admin/AdminRegistrations";
+import AdminServices from "./pages/admin/AdminServices";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import AdminSettings from "./pages/admin/AdminSettings";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +32,18 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/temoignages" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="registrations" element={<AdminRegistrations />} />
+            <Route path="services" element={<AdminServices />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="settings" element={<AdminSettings />} />
+            <Route path="users" element={<AdminUsers />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

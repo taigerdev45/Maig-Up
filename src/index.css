@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 30% 15%;
 
-    --primary: 199 89% 48%;
+    --primary: 209 89% 38%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96%;
@@ -24,7 +24,7 @@
     --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 43 96% 56%;
+    --accent: 44 95% 55%;
     --accent-foreground: 210 30% 15%;
 
     --destructive: 0 84% 60%;
@@ -32,28 +32,28 @@
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 199 89% 48%;
+    --ring: 209 89% 38%;
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
-    --hero-bg: 209 62% 12%;
-    --hero-bg-lighter: 209 55% 18%;
+    /* Custom tokens based on Maig'Up Logo */
+    --hero-bg: 209 62% 10%;
+    --hero-bg-lighter: 209 55% 15%;
     --hero-foreground: 0 0% 100%;
     --hero-muted: 210 20% 75%;
 
-    --gold: 43 96% 56%;
-    --gold-foreground: 30 50% 15%;
+    --gold: 44 95% 55%;
+    --gold-foreground: 44 95% 15%;
 
-    --cyan: 199 89% 48%;
-    --cyan-light: 199 89% 60%;
-    --cyan-dark: 199 89% 38%;
+    --maigup-blue: 209 89% 38%;
+    --maigup-blue-light: 209 89% 48%;
+    --maigup-blue-dark: 209 89% 28%;
 
     --green: 160 70% 42%;
     --green-foreground: 0 0% 100%;
 
-    --stat-card-bg: 209 50% 18%;
-    --stat-card-border: 209 40% 25%;
+    --stat-card-bg: 209 50% 15%;
+    --stat-card-border: 209 40% 20%;
 
     --whatsapp: 142 70% 45%;
     --whatsapp-foreground: 0 0% 100%;
