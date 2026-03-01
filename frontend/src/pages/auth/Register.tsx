@@ -82,11 +82,11 @@ export default function Register() {
       });
       
       navigate('/login');
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: "destructive",
         title: "Erreur d'inscription",
-        description: error.message || "Une erreur est survenue.",
+        description: (error as { message?: string }).message || "Une erreur est survenue.",
       });
     } finally {
       setLoading(false);

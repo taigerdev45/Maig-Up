@@ -43,11 +43,11 @@ export default function Login() {
       });
       
       navigate('/dashboard'); // Rediriger vers le dashboard après connexion
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast({
         variant: "destructive",
         title: "Erreur de connexion",
-        description: error.message || "Une erreur est survenue lors de la connexion.",
+        description: (error as { message?: string }).message || "Une erreur est survenue lors de la connexion.",
       });
     } finally {
       setLoading(false);
