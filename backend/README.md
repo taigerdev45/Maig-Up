@@ -1,14 +1,25 @@
 # Backend - Laravel 12
 
-This directory is reserved for the Laravel 12 backend application.
+This directory contains the Laravel backend for Maig-Up.
+
+## Tech Stack
+- **Framework**: Laravel 12 (or 11)
+- **Database/Auth**: Supabase (via `saeedvir/supabase` or `supabase/supabase-php`)
+- **Deployment**: Render
 
 ## Setup Instructions
 
-1.  Ensure you have PHP >= 8.2 and Composer installed.
-2.  Run the following command to initialize the Laravel project:
-
+1.  **Requirements**: PHP >= 8.2, Composer.
+2.  **Initialization**:
     ```bash
     composer create-project laravel/laravel:^12.0 .
     ```
+3.  **Configuration**:
+    - Copy `.env.example` to `.env`.
+    - Configure Supabase credentials (`SUPABASE_URL`, `SUPABASE_KEY`).
 
-3.  Configure your `.env` file for database and other services.
+## API Flow
+The backend acts as a secure middleware between the React Frontend and Supabase:
+- Validates input (Zod/Laravel Validation).
+- Handles complex logic (Business rules).
+- Interacts with Supabase for data persistence.
