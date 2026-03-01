@@ -9,6 +9,8 @@ import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 import AdminLogin from "./pages/AdminLogin";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -32,6 +34,10 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/temoignages" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
+          
+          {/* Auth Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
