@@ -122,3 +122,51 @@ La base de données PostgreSQL (via Supabase) utilise des UUIDs pour les IDs pri
 - **Paiements (Future)** : Création session Stripe, traitement webhooks, liste transactions.
 - **Realtime** : Notifications live pour updates dossiers.
 - **Conformité** : Endpoints DSAR (accès/suppression données), logs audits.
+
+### 4.3 Liste des Interfaces Utilisateur (UI Pages) avec Rôles d'Accès
+| Interface/Page | Description | Rôles Accès | Composants Clés |
+|----------------|-------------|-------------|-----------------|
+| **Accueil (Home)** | Page d'accueil publique avec services, témoignages, formulaire contact. | Public (non auth) | Hero section, services grid, témoignages carousel, contact form. |
+| **Inscription (Register)** | Formulaire création compte. | Public | Champs email/password, consent checkbox. |
+| **Connexion (Login)** | Formulaire login. | Public | Champs email/password. |
+| **Profil Personnel (Profile)** | View/edit profil étudiant. | STUDENT | Form profil, affichage détails. |
+| **Mes Dossiers (My Registrations)** | Liste dossiers perso, création nouveau, détails avec documents. | STUDENT | Table dossiers, form création, upload documents. |
+| **Notifications** | Liste notifications perso. | STUDENT, ADMIN | Liste items avec mark as read. |
+| **Dashboard Admin** | Stats, liste users, dossiers, inquiries, CRUD services/testimonials. | ADMIN | Graphs KPIs, tables filtrables. |
+| **Gestion Dossiers (Admin Registrations)** | Liste tous dossiers, update statut/notes, verify documents. | ADMIN | Table avancée (filtres statut/pays), modals update. |
+| **Gestion Inquiries** | Liste contacts, mark resolved. | ADMIN | Table inquiries. |
+| **Gestion Services/Testimonials** | CRUD pour contenu. | ADMIN | Forms édition, toggle publish. |
+| **Paiements (Future)** | Liste transactions perso, initiation paiement. | STUDENT (perso), ADMIN (tous) | Table payments, bouton checkout. |
+| **Politique Confidentialité** | Page statique sur données. | Public | Texte légal. |
+
+**Notes Interfaces** : Utiliser `ProtectedRoute` pour rôles. Public = non auth; STUDENT/ADMIN via JWT role.
+
+### 4.4 Exemples Complets des Formulaires
+Les formulaires utilisent **React Hook Form + Zod** pour validation.
+
+**Exemple 1: Formulaire Inscription (Register)**
+```ts
+const registerSchema = z.object({
+  email: z.string().email("Email invalide"),
+  password: z.string().min(8, "Mot de passe trop court"),
+  first_name: z.string().min(1, "Requis"),
+  last_name: z.string().min(1, "Requis"),
+  phone: z.string().optional(),
+  country_origin: z.string().min(1, "Requis"),
+  consent_given: z.boolean().refine(val => val === true, "Consentement requis"),
+});
+```
+
+**Exemple 2: Formulaire Création Dossier (New Registration)**
+```ts
+const registrationSchema = z.object({
+  target_country: z.string().min(1, "Requis"),
+  program: z.string().min(1, "Requis"),
+  university_name: z.string().optional(),
+  intake_period: z.string().min(1, "Requis"),
+  documents: z.array(z.object({
+    file: z.instanceof(File),
+    type: z.enum(['TRANSCRIPT', 'PASSPORT', 'MOTIVATION_LETTER', 'OTHER'])
+  })).min(1, "Au moins un document"),
+});
+```
