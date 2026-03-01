@@ -170,3 +170,56 @@ const registrationSchema = z.object({
   })).min(1, "Au moins un document"),
 });
 ```
+
+**Exemple 3: Formulaire Contact (Inquiry)**
+```ts
+const inquirySchema = z.object({
+  name: z.string().min(1, "Requis"),
+  email: z.string().email("Email invalide"),
+  subject: z.string().min(1, "Requis"),
+  message: z.string().min(10, "Message trop court"),
+});
+```
+
+### 4.5 API Endpoints (REST via Laravel)
+L'API Laravel exposera les routes suivantes (authentification déléguée à Supabase).
+
+**Authentification**
+- `POST /api/auth/register` : Création compte (Supabase `signUp` + profil).
+- `POST /api/auth/login` : Connexion (Supabase `signInWithPassword`).
+- `POST /api/auth/refresh` : Refresh token.
+- `POST /api/auth/logout` : Déconnexion.
+
+**Utilisateurs & Admin**
+- `GET /api/users/me` : Profil courant.
+- `GET /api/admin/stats` : KPIs dashboard.
+- `GET /api/admin/users` : Liste users (Admin).
+- `POST /api/users/consent` : Mise à jour consentement.
+
+**Dossiers (Registrations)**
+- `POST /api/registrations` : Créer demande.
+- `GET /api/registrations` : Liste demandes (filtrée par rôle).
+- `PATCH /api/registrations/:id/status` : Update statut (Admin).
+
+**Contenu & Paiements**
+- `GET/POST /api/services` (Admin write).
+- `GET/POST /api/testimonials` (Admin write).
+- `POST /api/payments/create-session` (Stripe).
+- `POST /api/payments/webhook` (Stripe).
+
+**Realtime**
+- Souscription via Supabase Client (ex: `realtime:registrations:user_id`).
+
+### 4.6 Sécurité (OWASP Top 10 - 2025)
+**Mesures Générales** :
+- **Auth** : JWT (Supabase), Mots de passe hachés.
+- **Validation** : Stricte (Zod + Laravel Validator).
+- **RLS** : Row Level Security obligatoire.
+- **HTTPS** : Partout.
+- **Rate Limiting** : Middleware Laravel.
+
+**Mitigation Risques Clés** :
+- **A01 Broken Access Control** : RLS + Policies strictes.
+- **A03 Injection** : Prepared statements (Supabase/PDO).
+- **A05 Misconfiguration** : Env sécurisés, debug off en prod.
+- **A07 Auth Failures** : Rate limiting, MFA optionnel.
