@@ -1,27 +1,28 @@
-services:
-  # Frontend Service
-  - type: web
-    name: frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache
 
-  # Backend Service (Laravel)
+services:
   - type: web
-    name: backend
-    env: php
-    buildCommand: cd backend && composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
-    startCommand: cd backend && php artisan serve --host=0.0.0.0 --port=$PORT
+    name: maig-up-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
     envVars:
       - key: APP_KEY
         generateValue: true
-      - key: APP_ENV
-        value: production
       - key: APP_DEBUG
-        value: false
-      - key: LOG_CHANNEL
-        value: stderr
+        value: true
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+
+  - type: web
+    name: maig-up-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run preview
+    envVars:
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
