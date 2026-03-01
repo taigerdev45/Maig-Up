@@ -1,0 +1,83 @@
+====================================================
+  INSTALLATION DU BACKEND - MAIG-UP (Laravel 11)
+====================================================
+
+PREREQUIS
+---------
+- PHP 8.2 ou supérieur
+- Composer (https://getcomposer.org/download/)
+- MySQL ou PostgreSQL
+- Git
+
+ETAPE 1 : INSTALLER PHP 8.3 (Windows)
+--------------------------------------
+1. Télécharger PHP 8.3 (Thread Safe, x64) :
+   https://windows.php.net/download/
+
+2. Extraire le zip dans C:\php83 (ou un dossier de votre choix)
+
+3. Configurer php.ini :
+   - Copier php.ini-development en php.ini
+   - Modifier extension_dir :
+       extension_dir = "C:/php83/ext"
+   - Décommenter ces extensions (retirer le ;) :
+       extension=curl
+       extension=fileinfo
+       extension=mbstring
+       extension=openssl
+       extension=pdo_mysql
+       extension=zip
+
+4. Ajouter C:\php83 au PATH Windows :
+   Paramètres > Rechercher "Variables d'environnement" > Path > Nouveau > C:\php83
+
+5. Fermer et rouvrir le terminal, puis vérifier :
+   php -v
+
+ETAPE 2 : INSTALLER COMPOSER (si pas déjà fait)
+------------------------------------------------
+1. Télécharger et exécuter l'installeur :
+   https://getcomposer.org/Composer-Setup.exe
+
+2. Fermer et rouvrir le terminal, puis vérifier :
+   composer --version
+
+ETAPE 3 : INSTALLER LE PROJET
+------------------------------
+1. Cloner le dépôt :
+   git clone <URL_DU_DEPOT>
+   cd maig-up/backend
+
+2. Installer les dépendances :
+   composer install
+
+3. Copier le fichier d'environnement :
+   cp .env.example .env
+
+4. Générer la clé d'application :
+   php artisan key:generate
+
+5. Configurer la base de données dans .env :
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=maig_up
+   DB_USERNAME=root
+   DB_PASSWORD=votre_mot_de_passe
+
+6. Exécuter les migrations :
+   php artisan migrate
+
+7. Lancer le serveur de développement :
+   php artisan serve
+
+   Le serveur sera accessible sur : http://localhost:8000
+
+COMMANDES UTILES
+----------------
+- php artisan serve          -> Lancer le serveur
+- php artisan migrate        -> Exécuter les migrations
+- php artisan migrate:fresh  -> Réinitialiser la base de données
+- php artisan tinker         -> Console interactive
+- php artisan test           -> Lancer les tests
+- composer update            -> Mettre à jour les dépendances
