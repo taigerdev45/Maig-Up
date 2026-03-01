@@ -223,3 +223,37 @@ L'API Laravel exposera les routes suivantes (authentification déléguée à Sup
 - **A03 Injection** : Prepared statements (Supabase/PDO).
 - **A05 Misconfiguration** : Env sécurisés, debug off en prod.
 - **A07 Auth Failures** : Rate limiting, MFA optionnel.
+
+### 4.7 Conformité aux Lois sur les Données Personnelles
+Alignement avec : **Loi gabonaise n° 001/2011** (APDPVP), GDPR, FERPA.
+
+**Principes Clés** :
+- **Minimisation** : Collecter uniquement le nécessaire.
+- **Consentement** : Explicite (`consent_given`), révocable.
+- **Droits (DSAR)** : Accès/Suppression via API.
+- **Transferts** : Utiliser des régions cloud conformes (ex: Supabase EU).
+- **Sécurité** : Chiffrement, audits annuels, notification de brèches (72h).
+
+**Implémentation** :
+- Checkboxes consentement obligatoires.
+- Logs d'accès.
+- Politique de confidentialité.
+
+## 5. Modifications Frontend Requises
+1.  **Couche API (Service Layer)** : `src/services/api.ts` (Axios + JWT interceptor).
+2.  **React Query** : Remplacer `useState` par `useQuery`/`useMutation`.
+3.  **Auth** : `AuthProvider` (Context) avec Supabase JS Client. `ProtectedRoute` pour admin.
+4.  **Formulaires** : Connecter à l'API Laravel. Uploads via Supabase Storage.
+5.  **Realtime** : Notifications via `supabase.realtime`.
+
+## 6. Hébergement et Déploiement (DevOps)
+### 6.1 Environnements
+- **Dev** : Local (Docker).
+- **Staging** : Branche `develop`.
+- **Prod** : Branche `main`.
+
+### 6.2 Infrastructure Suggérée
+- **Frontend** : Vercel.
+- **Backend** : Render.
+- **Supabase** : Cloud hébergé.
+- **Paiements** : Stripe (EU).
