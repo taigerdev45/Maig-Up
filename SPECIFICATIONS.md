@@ -89,3 +89,36 @@ Pour simplifier la gestion du code, des dépendances et des déploiements, l'ens
 - **Développement** : Adopter un monorepo pour facilité CI/CD. Utiliser Docker.
 - **Meilleures Pratiques** : Suivre SOLID principles en Laravel. Tester unitaires/end-to-end avec PHPUnit et Cypress. i18n ready (fr/en).
 - **Coûts Estimés (2026)** : Supabase Pro ~25$/mois, Vercel Pro ~20$/mois, Render ~15$/mois. Total initial <60$/mois pour <500 users.
+
+## 4. Spécifications Fonctionnelles Techniques
+### 4.1 Modèle de Base de Données Complet
+La base de données PostgreSQL (via Supabase) utilise des UUIDs pour les IDs primaires.
+
+| Table | Champs | Index | RLS Policies (Simplifié) |
+|-------|--------|-------|--------------------------|
+| **users** | id (PK), email (unique), password_hash, role ('ADMIN','STUDENT'), created_at, updated_at | email, role | Self-access; Admin update |
+| **profiles** | id (PK), user_id (FK), first_name, last_name, phone, country_origin, date_of_birth, education_level, gpa, field_of_study, budget_min/max, avatar_url | user_id | Self-access |
+| **registrations** | id (PK), user_id (FK), target_country, program, university_name, intake_period, status (PENDING...), current_step (DOCUMENTS...), admin_notes, rejection_reason | user_id, status | Self-access OR Admin |
+| **documents** | id (PK), registration_id (FK), file_name, file_url, type, uploaded_at, verified | registration_id | Owner OR Admin |
+| **services** | id (PK), title, description, price, icon | title | Public Read; Admin Write |
+| **testimonials** | id (PK), author_name, content, rating, is_published | is_published | Public Read (if published); Admin Write |
+| **inquiries** | id (PK), name, email, subject, message, status | status | Admin Read/Update; Public Insert |
+| **notifications** | id (PK), user_id (FK), message, read | user_id, read | Self-access |
+| **payments** | id (PK), user_id (FK), registration_id, stripe_id, amount, status | user_id, status | Self-access OR Admin |
+
+**Notes DB** :
+- Timestamps `created_at` et `updated_at` automatiques.
+- Triggers Supabase pour logs audits.
+
+### 4.2 Liste de Toutes les Fonctionnalités
+- **Authentification** : Inscription, connexion, refresh token, déconnexion, vérification email, gestion consentement.
+- **Gestion Utilisateurs** : Profil personnel (view/edit), liste admins (view only pour ADMIN).
+- **Gestion Dossiers (Registrations)** : Création demande, liste (perso ou toutes), update statut (ADMIN), workflow étapes, notes/rejets.
+- **Gestion Documents** : Upload, view, vérification (ADMIN).
+- **Contenu Statique** : Liste services (public), CRUD services (ADMIN), liste témoignages publiés (public), CRUD témoignages (ADMIN).
+- **Contacts/Inquiries** : Soumission formulaire contact (public), liste/gestion (ADMIN).
+- **Notifications** : Envoi realtime (ex: statut change), liste/lire (user perso).
+- **Dashboard Admin** : Stats (KPIs : nb dossiers par statut/pays, users actifs, etc.).
+- **Paiements (Future)** : Création session Stripe, traitement webhooks, liste transactions.
+- **Realtime** : Notifications live pour updates dossiers.
+- **Conformité** : Endpoints DSAR (accès/suppression données), logs audits.
